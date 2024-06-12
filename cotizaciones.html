@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización</title>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.16.0/dist/pdf-lib.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #ff0000, #ffffff); /* Degradado de rojo a blanco */
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99;
+        }
+
+        .logo {
+            font-size: 2em;
+            color: #fff;
+            user-select: none;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.3); /* Fondo transparente */
+            color: #000;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            max-width: 90%; /* Tamaño máximo del contenedor */
+            width: 100%;
+            margin: 100px auto; /* Espacio arriba y abajo */
+            position: relative;
+            top: -50px; /* Mueve el formulario hacia arriba */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ff0000;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .form-group button, .download-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 50px;
+            background: #ff0000;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-group button:hover, .download-button:hover {
+            background: #0041cc;
+        }
+
+        .return-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 1s ease;
+            z-index: 100;
+        }
+
+        .return-button:hover {
+            background-color: white;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px;
+            }
+            .logo {
+                font-size: 1.5em;
+            }
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+                margin: 80px auto;
+                top: -40px;
+            }
+            .return-button {
+                top: 10px;
+                left: 10px;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 60px auto;
+                top: -20px;
+            }
+            .return-button {
+                top: 5px;
+                left: 5px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 class="logo"></h2>
+    </header>
+
+    <!-- Botón para regresar a la página original -->
+    <button class="return-button" onclick="goToOriginalPage()">Regresar</button>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="company-name">Nombre completo o Nombre de la empresa:</label>
+            <input type="text" id="company-name" required>
+        </div>
+        <div class="form-group">
+            <label for="service">Servicio:</label>
+            <select id="service" required>
+                <option value="mantenimiento">Mantenimiento</option>
+                <option value="calibracion">Calibración</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="type-person">Tipo de persona:</label>
+            <select id="type-person" required>
+                <option value="Natural">Natural</option>
+                <option value="Juridica">Juridica</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Cantidad de Equipos a Calibrar:</label>
+            <input type="number" id="quantity" required>
+        </div>
+        <div class="form-group">
+            <label for="equipment-name">Nombre del Equipo:</label>
+            <input type="text" id="equipment-name" required>
+        </div>
+        <div class="form-group">
+            <label for="payment-method">Forma de pago:</label>
+            <input type="text" id="payment-method" required>
+        </div>
+        <div class="form-group">
+            <button onclick="saveLocalStorage()">Guardar Datos</button>
+        </div>
+        <button class="download-button" onclick="generatePdf()">Descargar Cotización PDF</button>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="cotizaciones.js"></script>
+</body>
+</html>
+
